@@ -26,9 +26,20 @@ async function run() {
     try {
         // Connect the client to the server	(optional starting in v4.7)
         // await client.connect();
+        const productCollection = client.db("insertDB").collection("product");
 
 
 
+
+
+
+        
+        app.post("/addItem", async (req, res) => {
+            const newProducts = req.body;
+            console.log("newProducts",newProducts);
+            const result = await productCollection.insertOne(newProducts);
+            res.send(result)
+        })
 
 
 
