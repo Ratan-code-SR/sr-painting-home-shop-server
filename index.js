@@ -54,13 +54,16 @@ async function run() {
 
         })
 
-        app.delete("/items/:id", async (req, res) => {
+
+
+        app.delete("/items/:id",async (req, res) => {
             const id = req.params.id;
             console.log("please delete from database", id);
             const query = { _id: new ObjectId(id) };
             const result = await productCollection.deleteOne(query);
             res.send(result)
         })
+
 
         app.post("/addItem", async (req, res) => {
             const newProducts = req.body;
