@@ -35,8 +35,7 @@ async function run() {
         })
 
 
-        
-        app.get("/items/:email", async (req, res) => {
+        app.get("/items/email/:email", async (req, res) => {
             const email = req.params.email;
             const query = { email: email }
             const cursor = productCollection.find(query);
@@ -44,25 +43,15 @@ async function run() {
             res.send(result)
         })
 
-
-
-        app.get("/items/:id", async (req, res) => {
+        app.get("/items/id/:id", async (req, res) => {
             const id = req.params.id;
+            console.log(id);
             const query = { _id: new ObjectId(id) }
-            const user = await productCollection.findOne(query)
-            res.send(user)
-
-        })
-
-
-
-        app.delete("/items/:id",async (req, res) => {
-            const id = req.params.id;
-            console.log("please delete from database", id);
-            const query = { _id: new ObjectId(id) };
-            const result = await productCollection.deleteOne(query);
+            const result = await productCollection.findOne(query)
             res.send(result)
         })
+
+
 
 
         app.post("/addItem", async (req, res) => {
@@ -71,6 +60,16 @@ async function run() {
             const result = await productCollection.insertOne(newProducts);
             res.send(result)
         })
+
+
+        app.delete("/items/:id", async (req, res) => {
+            const id = req.params.id;
+            console.log("please delete from database", id);
+            const query = { _id: new ObjectId(id) };
+            const result = await productCollection.deleteOne(query);
+            res.send(result)
+        })
+
 
         app.put("/items/:id", async (req, res) => {
             const id = req.params.id;
