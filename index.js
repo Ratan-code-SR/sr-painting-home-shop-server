@@ -43,6 +43,7 @@ async function run() {
             res.send(result)
         })
 
+
         app.get("/items/id/:id", async (req, res) => {
             const id = req.params.id;
             console.log(id);
@@ -60,16 +61,6 @@ async function run() {
             const result = await productCollection.insertOne(newProducts);
             res.send(result)
         })
-
-
-        app.delete("/items/:id", async (req, res) => {
-            const id = req.params.id;
-            console.log("please delete from database", id);
-            const query = { _id: new ObjectId(id) };
-            const result = await productCollection.deleteOne(query);
-            res.send(result)
-        })
-
 
         app.put("/items/:id", async (req, res) => {
             const id = req.params.id;
@@ -93,6 +84,15 @@ async function run() {
             const result = await productCollection.updateOne(filter, updateUserDoc, options)
             res.send(result)
         })
+
+        app.delete("/items/:id", async (req, res) => {
+            const id = req.params.id;
+            console.log("please delete from database", id);
+            const query = { _id: new ObjectId(id) };
+            const result = await productCollection.deleteOne(query);
+            res.send(result)
+        })
+
 
 
 
