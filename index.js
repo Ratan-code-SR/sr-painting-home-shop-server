@@ -28,12 +28,14 @@ async function run() {
         // await client.connect();
         const productCollection = client.db("insertDB").collection("product");
 
+        // items get functionality
         app.get("/items", async (req, res) => {
             const cursor = productCollection.find();
             const result = await cursor.toArray()
             res.send(result)
         })
 
+        // email get 
 
         app.get("/items/email/:email", async (req, res) => {
             const email = req.params.email;
@@ -43,7 +45,7 @@ async function run() {
             res.send(result)
         })
 
-
+// id get functionality
         app.get("/items/id/:id", async (req, res) => {
             const id = req.params.id;
             console.log(id);
@@ -54,7 +56,7 @@ async function run() {
 
 
 
-
+// post functionality
         app.post("/addItem", async (req, res) => {
             const newProducts = req.body;
             console.log("newProducts", newProducts);
@@ -62,6 +64,7 @@ async function run() {
             res.send(result)
         })
 
+// update functionality
         app.put("/items/:id", async (req, res) => {
             const id = req.params.id;
             console.log(id);
@@ -85,6 +88,7 @@ async function run() {
             res.send(result)
         })
 
+        // delete functionality
         app.delete("/items/:id", async (req, res) => {
             const id = req.params.id;
             console.log("please delete from database", id);
@@ -94,9 +98,6 @@ async function run() {
         })
 
 
-
-
-        // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
         console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
